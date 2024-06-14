@@ -21,7 +21,7 @@ execute() {
   fi
 }
 
-execute "kubectl apply -f - <<EOF
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
@@ -29,6 +29,6 @@ metadata:
 type: kubernetes.io/basic-auth
 stringData:
   password: your_root_password
-EOF"
+EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
