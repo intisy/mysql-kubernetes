@@ -12,6 +12,10 @@ stringData:
 EOF
 ```
 now we're gonna apply this mysql file:
-```kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml```
+```
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
+```
 if you want to use PhpMyAdmin you can also apply this:
-```kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml```
+```
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
+```
