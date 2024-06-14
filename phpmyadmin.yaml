@@ -37,21 +37,10 @@ kind: Service
 metadata:
   name: phpmyadmin-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: phpmyadmin
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-
----
-
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: phpmyadmin-http-ingress
-spec:
-  backend:
-    serviceName: phpmyadmin-service
-    servicePort: 80
