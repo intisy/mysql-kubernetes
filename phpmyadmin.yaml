@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       app: phpmyadmin
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -14,9 +16,10 @@ spec:
     spec:
       containers:
       - name: phpmyadmin
-        image: phpmyadmin/phpmyadmin
+        image: phpmyadmin/phpmyadmin:latest
         ports:
         - containerPort: 80
+          name: phpmyadmin
         env:
         - name: PMA_HOST
           value: mysql
