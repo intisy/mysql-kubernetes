@@ -16,7 +16,6 @@ execute() {
   if ! "$@"
   then
     echo "$(printf "Failed during: %s" "$(shell_join "$@")")"
-    exit 1
   fi
 }
 
