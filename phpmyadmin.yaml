@@ -29,3 +29,29 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: password
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin-service
+spec:
+  type: NodePort
+  selector:
+    app: phpmyadmin
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: phpmyadmin-http-ingress
+spec:
+  backend:
+    serviceName: phpmyadmin-service
+    servicePort: 80
