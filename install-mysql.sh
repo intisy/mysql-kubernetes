@@ -11,6 +11,15 @@ shell_join() {
   done
 }
 
+generate_secure_password() {
+  if ! command -v openssl &> /dev/null; then
+    echo "Error: OpenSSL not found. Secure password generation unavailable."
+    return 1
+  fi
+  length=16
+  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9!@#$%^&*()_+-=[]{}|;:\'"'<,>.?/')
+}
+
 execute() {
   command="$@"
   echo "Executing command: '$command'"
@@ -22,14 +31,17 @@ execute() {
   fi
 }
 
+generate_secure_password
+echo "Generated password: $password"
+
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-secret
-type: kubernetes.io/basic-auth
-stringData:
-  password: your_root_password
+  name: mysql-root-password
+data:
+  root-password: $password
+type: Opaque
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
