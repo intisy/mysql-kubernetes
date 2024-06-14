@@ -12,11 +12,12 @@ shell_join() {
 }
 
 execute() {
-  command=$@
-  echo "Executing: $command"
-  if ! "$command"
-  then
-    echo "$(printf "Failed during: %s" "$(shell_join "$@")")"
+  command="$@"
+  $command
+  if [[ $? -ne 0 ]]; then
+    echo "Error: '$command' failed with exit code: $?."
+  else
+    echo "Successfully executed command: '$command'"
   fi
 }
 
