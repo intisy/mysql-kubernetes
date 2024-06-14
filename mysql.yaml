@@ -38,6 +38,8 @@ spec:
   selector:
     matchLabels:
       app: mysql
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -45,13 +47,16 @@ spec:
     spec:
       containers:
       - name: mysql
-        image: mysql:8.0
+        image: mysql:latest
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-root-password
               key: root-password
+        ports:
+        - containerPort: 3306
+          name: mysql
         volumeMounts:
         - name: mysql-data
           mountPath: /var/lib/mysql
