@@ -1,8 +1,9 @@
 MySQL + PhpMyAdmin
 ---------
-Install:
-  1.
-    First we create the mysql-secret, make sure to replace the password:
+Install
+---------
+1.
+First we create the mysql-secret, make sure to replace the password:
 ```
 kubectl apply -f - <<EOF
 apiVersion: v1
