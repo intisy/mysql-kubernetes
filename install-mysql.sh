@@ -16,8 +16,8 @@ generate_secure_password() {
     echo "Error: OpenSSL not found. Secure password generation unavailable."
     return 1
   fi
-  length=16
-  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9')
+  length=30
+  password=$(openssl rand -base64 $length | tr -dc 'a-z')
 }
 
 execute() {
@@ -40,7 +40,7 @@ kind: Secret
 metadata:
   name: mysql-root-password
 data:
-  root-password: "vETkKYTrSWItky7TMGF5TQ"
+  root-password: $password
 type: Opaque
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
