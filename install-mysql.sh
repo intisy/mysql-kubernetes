@@ -17,7 +17,7 @@ generate_secure_password() {
     return 1
   fi
   length=20
-  password=$(openssl rand -base64 $length | tr -dc 'a-z')
+  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9' | base64)
 }
 
 execute() {
