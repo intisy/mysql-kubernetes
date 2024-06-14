@@ -40,7 +40,7 @@ kind: Secret
 metadata:
   name: mysql-root-password
 data:
-  root-password: $password
+  root-password: i3ywXYDk3lQLakZNKIGrmw
 type: Opaque
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
