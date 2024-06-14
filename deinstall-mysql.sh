@@ -12,8 +12,9 @@ shell_join() {
 }
 
 execute() {
-  echo "Executing: $@"
-  if ! "$@"
+  command=$@
+  echo "Executing: $command"
+  if ! "$command"
   then
     echo "$(printf "Failed during: %s" "$(shell_join "$@")")"
   fi
