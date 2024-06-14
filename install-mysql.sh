@@ -16,7 +16,7 @@ generate_secure_password() {
     echo "Error: OpenSSL not found. Secure password generation unavailable."
     return 1
   fi
-  length=30
+  length=20
   password=$(openssl rand -base64 $length | tr -dc 'a-z')
 }
 
