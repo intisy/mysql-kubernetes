@@ -2,6 +2,7 @@ MySQL + PhpMyAdmin
 ---------
 Install
 ---------
+
 1.
 First we create the mysql-secret, make sure to replace the password:
 ```
