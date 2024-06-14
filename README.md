@@ -11,7 +11,7 @@ stringData:
   password: your_root_password
 EOF
 ```
-now we're gonna apply this mysql file:
+now we're gonna apply this MySQL file:
 ```
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 ```
