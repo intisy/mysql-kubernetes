@@ -1,5 +1,6 @@
 #!/bin/bash
 
+kubectl delete secret mysql-secret
 kubectl delete pv mysql-pv-volume
 kubectl delete pvc mysql-pv-claim
 kubectl delete deployment mysql
