@@ -11,7 +11,7 @@ kind: Secret
 metadata:
   name: mysql-root-password
 data:
-  root-password: <your_password>
+  root-password: <your_base64_password>
 type: Opaque
 EOF
 ```
