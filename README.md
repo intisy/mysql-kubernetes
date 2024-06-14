@@ -2,6 +2,7 @@ MySQL + PhpMyAdmin
 ---------
 First we create the mysql-secret, make sure to replace the password:
 ```
+kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
