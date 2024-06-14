@@ -77,9 +77,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: mysql-service
 spec:
   ports:
   - port: 3306
   selector:
-    app: mysql
+    app: mysql-service
