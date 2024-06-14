@@ -17,6 +17,7 @@ spec:
       containers:
       - name: phpmyadmin
         image: phpmyadmin/phpmyadmin
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
           name: phpmyadmin
