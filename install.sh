@@ -38,7 +38,7 @@ if [ ! -n "$password" ]; then
 fi
 echo "Your password: $password"
 
-curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s true
+curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s false
 sleep 1
 kubectl apply -f - <<EOF
 apiVersion: v1
