@@ -12,7 +12,7 @@ metadata:
   name: mysql-secret
 type: kubernetes.io/basic-auth
 stringData:
-  root-password: <your_password>
+  password: <your_password>
 EOF
 ```
 now we're gonna apply this MySQL file:
