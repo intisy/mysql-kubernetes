@@ -38,7 +38,7 @@ if [ ! -n "$password" ]; then
 fi
 echo "Your password: $password"
 
-curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall-mysql.sh | bash -s
+curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
