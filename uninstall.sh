@@ -1,5 +1,7 @@
 #!/bin/bash
 
+log=$1
+
 shell_join() {
   local arg
   printf "%s" "$1"
@@ -13,9 +15,13 @@ shell_join() {
 
 execute() {
   command="$@"
-  $command
-  if [[ $? -ne 0 ]]; then
-    echo "Error: '$command' failed with exit code: $?."
+  if [ "$log" = false ]; then
+    void=$($command)
+  else
+    $command
+    if [[ $? -ne 0 ]]; then
+      echo "Error: '$command' failed with exit code: $?."
+    fi
   fi
 }
 
