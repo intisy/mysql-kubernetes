@@ -1,5 +1,7 @@
 #!/bin/bash
 
+password=$1
+
 shell_join() {
   local arg
   printf "%s" "$1"
@@ -31,7 +33,9 @@ execute() {
   fi
 }
 
-generate_secure_password
+if [ ! -n "$password" ]; then
+  generate_secure_password
+fi
 echo "Generated password: $password"
 
 kubectl apply -f - <<EOF
