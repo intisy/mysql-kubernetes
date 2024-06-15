@@ -16,7 +16,7 @@ shell_join() {
 execute() {
   command="$@"
   if [ "$log" = false ]; then
-    void=$($command)
+    void=$($command >&2)
   else
     $command
     if [[ $? -ne 0 ]]; then
