@@ -41,7 +41,7 @@ metadata:
   name: mysql-secret
 type: kubernetes.io/basic-auth
 stringData:
-  root-password: $password
+  password: $password
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
