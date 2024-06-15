@@ -13,7 +13,6 @@ shell_join() {
 
 execute() {
   command="$@"
-  echo "Executing command: '$command'"
   $command
   if [[ $? -ne 0 ]]; then
     echo "Error: '$command' failed with exit code: $?."
