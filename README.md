@@ -3,7 +3,7 @@ MySQL + PhpMyAdmin
 Install
 
 1. Manual Installation
- - First we create the mysql-secret, make sure to replace the password:
+ - First we create the mysql-secret, make sure to replace the password with you actual one:
 ```
 kubectl apply -f - <<EOF
 apiVersion: v1
