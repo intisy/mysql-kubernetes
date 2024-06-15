@@ -26,7 +26,7 @@ kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HE
 2. Installation script
 You will get an randomly generated password if you don't set it
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/install-mysql.sh) <your_password>"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/install-mysql.sh)" <your_password>
 ```
 Deinstall
 ```
