@@ -9,10 +9,10 @@ kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-root-password
-data:
-  root-password: <your_base64_password>
-type: Opaque
+  name: mysql-secret
+type: kubernetes.io/basic-auth
+stringData:
+  root-password: <your_password>
 EOF
 ```
 now we're gonna apply this MySQL file:
