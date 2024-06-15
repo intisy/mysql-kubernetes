@@ -22,6 +22,10 @@ spec:
         - containerPort: 80
           name: phpmyadmin
         env:
+        - name: MYSQL_USER
+          value: admin
+        - name: MYSQL_PASSWORD
+          value: admin
         - name: PMA_HOST
           value: mysql
         - name: PMA_PORT
