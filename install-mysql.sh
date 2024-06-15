@@ -17,7 +17,7 @@ generate_secure_password() {
     return 1
   fi
   length=20
-  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9' | base64)
+  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9')
 }
 
 execute() {
@@ -40,7 +40,7 @@ kind: Secret
 metadata:
   name: mysql-root-password
 data:
-  root-password: $password
+  root-password: $($password | base64)
 type: Opaque
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
