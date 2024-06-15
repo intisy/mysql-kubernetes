@@ -37,6 +37,7 @@ echo "Your password: $password"
 
 curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s false
 while kubectl get persistentvolumeclaim/mysql-pv-claim | grep -E '^mysql-pv-claim' >/dev/null; do
+  echo "Waiting for volumes to be deleted (may require an restart)"
   sleep 1
 done
 kubectl apply -f - <<EOF
