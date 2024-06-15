@@ -24,8 +24,9 @@ if you want to use PhpMyAdmin you can also apply this:
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
 ```
 2. Installation script
+You will get an randomly generated password if you don't set it
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/install-mysql.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/install-mysql.sh) <your_password>"
 ```
 Deinstall
 ```
