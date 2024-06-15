@@ -38,10 +38,10 @@ kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-root-password
-data:
-  root-password: $(echo $password | base64)
-type: Opaque
+  name: mysql-secret
+type: kubernetes.io/basic-auth
+stringData:
+  root-password: $password
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
