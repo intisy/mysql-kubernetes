@@ -34,7 +34,6 @@ kind: Deployment
 metadata:
   name: mysql
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
@@ -46,19 +45,22 @@ spec:
         app: mysql
     spec:
       containers:
-      - name: mysql
-        image: mysql:latest
+      - image: mysql:latest
+        name: mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: root
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
         ports:
         - containerPort: 3306
           name: mysql
         volumeMounts:
-        - name: mysql-data
+        - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
       volumes:
-      - name: mysql-data
+      - name: mysql-persistent-storage
         persistentVolumeClaim:
           claimName: mysql-pvc
 
