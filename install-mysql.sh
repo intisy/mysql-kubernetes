@@ -36,7 +36,7 @@ execute() {
 if [ ! -n "$password" ]; then
   generate_secure_password
 fi
-echo "Generated password: $password"
+echo "Your password: $password"
 
 kubectl apply -f - <<EOF
 apiVersion: v1
