@@ -39,7 +39,7 @@ fi
 echo "Your password: $password"
 
 curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s false
-sleep 1
+sleep 3
 kubectl apply -f - <<EOF
 apiVersion: v1
 kind: Secret
