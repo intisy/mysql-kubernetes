@@ -30,5 +30,5 @@ curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/ins
 ```
 Deinstall
 ```
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/deinstall-mysql.sh)"
+curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall-mysql.sh | bash -s
 ```
