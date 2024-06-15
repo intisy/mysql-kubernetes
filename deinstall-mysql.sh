@@ -24,7 +24,7 @@ execute() {
 
 execute "kubectl delete secret mysql-root-password"
 execute "kubectl delete pv mysql-pv-volume"
-execute "kubectl delete pvc mysql-pv-claim"
+execute "kubectl delete pvc mysql-pvc"
 execute "kubectl delete deployment mysql"
 execute "kubectl delete service mysql"
 execute "kubectl delete deployment phpmyadmin"
