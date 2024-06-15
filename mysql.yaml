@@ -50,14 +50,7 @@ spec:
         image: mysql:latest
         env:
         - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-secret
-              key: password
-        - name: MYSQL_USER
-          value: admin
-        - name: MYSQL_PASSWORD
-          value: admin
+          value: root
         ports:
         - containerPort: 3306
           name: mysql
