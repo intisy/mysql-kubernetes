@@ -33,7 +33,6 @@ execute() {
   fi
 }
 
-echo $password
 if [ ! -n "$password" ]; then
   generate_secure_password
 fi
