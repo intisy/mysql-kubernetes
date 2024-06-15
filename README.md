@@ -32,7 +32,7 @@ Deinstall
 ```
 curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s
 ```
-Custom MySQL + InnoDB + PhpMyAdmin
+Custom MySQL + InnoDB + PhpMyAdmin //TODO fininsh
 ---------
 Install
 
