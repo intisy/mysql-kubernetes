@@ -32,7 +32,6 @@ metadata:
   labels:
     name: mysql-data-store
     app: mysql
-  namespace: development
 data:
   init.sql: |
     CREATE DATABASE IF NOT EXISTS`blizzity`;
