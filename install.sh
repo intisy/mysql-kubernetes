@@ -2,17 +2,6 @@
 
 password=$1
 
-shell_join() {
-  local arg
-  printf "%s" "$1"
-  shift
-  for arg in "$@"
-  do
-    printf " "
-    printf "%s" "${arg// /\ }"
-  done
-}
-
 generate_secure_password() {
   if ! command -v openssl &> /dev/null; then
     echo "Error: OpenSSL not found. Secure password generation unavailable."
@@ -20,14 +9,6 @@ generate_secure_password() {
   fi
   length=20
   password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9')
-}
-
-execute() {
-  command="$@"
-  $command
-  if [[ $? -ne 0 ]]; then
-    echo "Error: '$command' failed with exit code: $?."
-  fi
 }
 
 if [ ! -n "$password" ]; then
@@ -49,5 +30,5 @@ type: Opaque
 data:
   password: $(echo $password | base64)
 EOF
-execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
-execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
