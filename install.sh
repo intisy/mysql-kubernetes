@@ -25,7 +25,6 @@ metadata:
   labels:
     name: mysql-secret
     app: mysql
-  namespace: development
 type: Opaque
 data:
   password: $(echo $password | base64)
