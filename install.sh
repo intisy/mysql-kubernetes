@@ -43,7 +43,7 @@ metadata:
   name: mysql-secret
   labels:
     name: mysql-secret
-    app: mysql-gke-deployment
+    app: mysql
   namespace: development
 type: Opaque
 data:
