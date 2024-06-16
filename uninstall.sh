@@ -25,8 +25,6 @@ execute() {
   fi
 }
 
-execute "kubectl delete pv mysql-pv-volume" &
-execute "kubectl delete pvc mysql-pvc" &
 execute "kubectl delete secret mysql-secret" &
 execute "kubectl delete deployment mysql" &
 execute "kubectl delete service mysql" &
