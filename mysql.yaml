@@ -18,8 +18,21 @@ metadata:
   namespace: development
 data:
   init.sql: |
-    CREATE DATABASE IF NOT EXISTS `blizzity`;
-    USE `blizzity`;`
+    CREATE DATABASE IF NOT EXISTS`book-management-db`;
+    USE `book-management-db`;
+    DROP TABLE IF EXISTS `books`;
+    CREATE TABLE `books`(
+     `id`int NOT NULL AUTO_INCREMENT,
+     `title`varchar(255) NOT NULL,
+     `author`varchar(255) NOT NULL,
+     `language`varchar(255) DEFAULT NULL,
+     `created_at`datetime DEFAULT CURRENT_TIMESTAMP,
+     `created_by`varchar(255) DEFAULT NULL,
+     `updated_at`datetime DEFAULT CURRENT_TIMESTAMP,
+     `updated_by` varchar(255) DEFAULT NULL,
+      PRIMARY KEY (`id`)
+    );
+    insert into books(`title`,`author`,`language`) values('Harry Potter','J.K.Rowling','English');`
 
 ---
 
