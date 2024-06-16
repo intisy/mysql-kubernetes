@@ -41,8 +41,12 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mysql-secret
-type: kubernetes.io/basic-auth
-stringData:
+  labels:
+    name: mysql-secret
+    app: mysql-gke-deployment
+  namespace: development
+type: Opaque
+data:
   password: $password
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
