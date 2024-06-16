@@ -47,7 +47,7 @@ metadata:
   namespace: development
 type: Opaque
 data:
-  password: $password
+  password: $(echo $password | base64)
 EOF
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml"
 execute "kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml"
