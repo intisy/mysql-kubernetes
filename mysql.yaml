@@ -26,26 +26,9 @@ spec:
 ---
 
 apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: mysql-preload-data-config
-  labels:
-    name: mysql-data-store
-    app: mysql
-data:
-  init.sql: |
-    CREATE DATABASE IF NOT EXISTS`blizzity`;
-    USE `blizzity`;`
-
----
-
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
-  labels:
-    name: mysql-pv-claim
-    app: mysql
 spec:
   storageClassName: manual
   accessModes:
@@ -60,17 +43,11 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  labels:
-    name: mysql
-    app: mysql
 spec:
-  type: ClusterIP
-  selector:
-    name: mysql
-    app: mysql
   ports:
   - port: 3306
-    targetPort: 3306
+  selector:
+    app: mysql
 
 ---
 
@@ -78,11 +55,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
-  labels:
-    name: mysql
-    app: mysql
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: mysql
@@ -90,7 +63,6 @@ spec:
     type: Recreate
   template:
     metadata:
-      name: mysql
       labels:
         app: mysql
     spec:
@@ -106,3 +78,10 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
