@@ -44,6 +44,9 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mysql-pv-claim
+  labels:
+    name: mysql-pv-claim
+    app: mysql-gke-deployment
 spec:
   storageClassName: manual
   accessModes:
@@ -58,11 +61,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  labels:
+    name: mysql
+    app: mysql-gke-deployment
 spec:
+  type: ClusterIP
+  selector:
+    name: mysql
+    app: mysql-gke-deployment
   ports:
   - port: 3306
-  selector:
-    app: mysql
+    targetPort: 3306
 
 ---
 
@@ -70,16 +79,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  labels:
+    name: mysql
+    app: mysql-gke-deployment
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: mysql
+      app: mysql-gke-deployment
   strategy:
     type: Recreate
   template:
     metadata:
+      name: mysql
       labels:
         app: mysql
+        app: mysql-gke-deployment
     spec:
       containers:
       - image: mysql:latest
@@ -97,7 +113,8 @@ spec:
         - name: mysql-initdb
           mountPath: /docker-entrypoint-initdb.d
         - name: mysql-persistent-storage
-          mountPath: /var/lib/mysql
+          mountPath: "/var/lib/mysql"
+          subPath: "mysql"
       volumes:
       - name: mysql-initdb
         configMap:
