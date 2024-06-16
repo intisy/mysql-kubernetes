@@ -31,7 +31,7 @@ metadata:
   name: mysql-preload-data-config
   labels:
     name: mysql-data-store
-    app: mysql-gke-deployment
+    app: mysql
   namespace: development
 data:
   init.sql: |
@@ -46,7 +46,7 @@ metadata:
   name: mysql-pv-claim
   labels:
     name: mysql-pv-claim
-    app: mysql-gke-deployment
+    app: mysql
 spec:
   storageClassName: manual
   accessModes:
@@ -63,12 +63,12 @@ metadata:
   name: mysql
   labels:
     name: mysql
-    app: mysql-gke-deployment
+    app: mysql
 spec:
   type: ClusterIP
   selector:
     name: mysql
-    app: mysql-gke-deployment
+    app: mysql
   ports:
   - port: 3306
     targetPort: 3306
@@ -81,13 +81,12 @@ metadata:
   name: mysql
   labels:
     name: mysql
-    app: mysql-gke-deployment
+    app: mysql
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: mysql
-      app: mysql-gke-deployment
   strategy:
     type: Recreate
   template:
@@ -95,7 +94,6 @@ spec:
       name: mysql
       labels:
         app: mysql
-        app: mysql-gke-deployment
     spec:
       containers:
       - image: mysql:latest
