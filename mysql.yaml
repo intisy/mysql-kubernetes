@@ -14,8 +14,7 @@ metadata:
   name: mysql-preload-data-config
   labels:
     name: mysql-data-store
-    app: mysql-gke-deployment
-  namespace: development
+    app: mysql
 data:
   init.sql: |
     CREATE DATABASE IF NOT EXISTS`book-management-db`;
