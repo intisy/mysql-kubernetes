@@ -25,7 +25,7 @@ execute() {
   fi
 }
 
-if [ "$log" = false ]; then
+if [ "$log" != false ]; then
   execute "kubectl delete pv mysql-pv-volume" &
   execute "kubectl delete pvc mysql-pvc" &
 fi
