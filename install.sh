@@ -69,7 +69,7 @@ OEF
 fi
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
+echo "waiting for mysql to be ready..." >&2
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
-    echo "waiting for mysql to be ready..." >&2
     sleep 1
 done
