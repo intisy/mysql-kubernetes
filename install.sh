@@ -61,7 +61,7 @@ spec:
   local:
     path: "/var/lib/mysql"
   nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
+    required:
       nodeSelectorTerms:
       - matchExpressions:
         - key: kubernetes.io/role
