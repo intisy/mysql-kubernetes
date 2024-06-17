@@ -57,6 +57,9 @@ spec:
   accessModes:
   - ReadWriteOnce
   persistentVolumeReclaimPolicy: Delete
+  claimRef:
+    namespace: default
+    name: mysql-pv-claim
   storageClassName: local-storage
   local:
     path: "/var/lib/mysql"
