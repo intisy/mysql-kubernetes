@@ -66,16 +66,16 @@ spec:
   nodeAffinity:
     required:
       nodeSelectorTerms:
-      # - matchExpressions:
-      #   - key: kubernetes.io/role
-      #     operator: In
-      #     values:
-      #     - control-plane
       - matchExpressions:
         - key: kubernetes.io/hostname
           operator: In
           values:
           - blizzity2
+      # - matchExpressions:
+      #   - key: kubernetes.io/role
+      #     operator: In
+      #     values:
+      #     - control-plane
 OEF
 fi
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
