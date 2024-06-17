@@ -26,10 +26,11 @@ execute() {
 }
 
 if [ "$log" != false ]; then
-  execute "kubectl delete pv mysql-pv-volume" &
+  execute "kubectl delete pv mysql-pv" &
   execute "kubectl delete pvc mysql-pv-claim" &
 fi
-execute "kubectl delete secret mysql-secret" &
+execute "kubectl delete secret mysql-root-pass" &
+execute "kubectl delete secret mysql-user-pass" &
 execute "kubectl delete deployment mysql" &
 execute "kubectl delete service mysql" &
 execute "kubectl delete deployment phpmyadmin" &
