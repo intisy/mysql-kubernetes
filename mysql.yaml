@@ -70,15 +70,9 @@ spec:
               name: mysql-root-pass
               key: password
         - name: MYSQL_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: mysql-db-url
-              key: database
+          value: blizzity
         - name: MYSQL_USER
-          valueFrom:
-            secretKeyRef:
-              name: mysql-user-pass
-              key: username
+          value: user
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
