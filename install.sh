@@ -53,9 +53,12 @@ metadata:
 spec:
   capacity:
     storage: 20Gi
+  volumeMode: Filesystem
   accessModes:
   - ReadWriteOnce
-  hostPath:
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
     path: "/var/lib/mysql"
   nodeAffinity:
     requiredDuringSchedulingIgnoredDuringExecution:
