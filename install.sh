@@ -19,7 +19,6 @@ curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uni
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 generate_secure_password
 echo "User password: $password"
-kubectl create secret generic mysql-user-pass --from-iteral=username=user --from-literal=password=$password
-kubectl create secret generic mysql-db-url --from-iteral=database=blizzity
+kubectl create secret generic mysql-user-pass --from-literal=password=$password
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
