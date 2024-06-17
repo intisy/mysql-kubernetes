@@ -20,6 +20,21 @@ kubectl create secret generic mysql-root-pass --from-literal=password=$password
 generate_secure_password
 echo "User password: $password"
 kubectl create secret generic mysql-user-pass --from-literal=password=$password
+kubectl apply -f - <<OEF
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: $(hostname -I | awk {'print $1'})
+    path: /exports/documents
+  persistentVolumeReclaimPolicy: Recycle
+OEF
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
