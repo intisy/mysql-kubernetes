@@ -22,3 +22,7 @@ echo "User password: $password"
 kubectl create secret generic mysql-user-pass --from-literal=password=$password
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
+while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
+    echo "waiting for mysql to be ready..." >&2
+    sleep 1
+done
