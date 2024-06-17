@@ -62,7 +62,7 @@ spec:
     name: mysql-pv-claim
   storageClassName: local-storage
   local:
-    path: "/var/lib/mysql"
+    path: "/mnt/data/mysql"
   nodeAffinity:
     required:
       nodeSelectorTerms:
