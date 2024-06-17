@@ -5,15 +5,7 @@ Install
 1. Manual Installation
  - First we create the mysql-secret, make sure to replace the password with you actual one:
 ```
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secret
-type: kubernetes.io/basic-auth
-stringData:
-  password: <your_password>
-EOF
+kubectl create secret generic mysql-root-pass --from-literal=password=<your_password>
 ```
  - now we're gonna apply this MySQL file:
 ```
