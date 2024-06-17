@@ -14,20 +14,12 @@ generate_secure_password() {
 if [ ! -n "$password" ]; then
   generate_secure_password
 fi
-echo "Your password: $password"
-
+echo "Root password: $password"
 curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/uninstall.sh | bash -s false
-kubectl apply -f - <<EOF
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-secret
-  labels:
-    name: mysql-secret
-    app: mysql
-type: Opaque
-data:
-  password: $(echo $password | base64)
-EOF
+kubectl create secret generic mysql-root-pass --from-literal=password=$password
+generate_secure_password
+echo "User password: $password"
+kubectl create secret generic mysql-user-pass --from-iteral=username=user --from-literal=password=$password
+kubectl create secret generic mysql-db-url --from-iteral=database=blizzity
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
