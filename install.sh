@@ -54,9 +54,17 @@ spec:
   capacity:
     storage: 20Gi
   accessModes:
-    - ReadWriteOnce
+  - ReadWriteOnce
   hostPath:
     path: "/var/lib/mysql"
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/role
+          operator: In
+          values:
+          - control-plane
 OEF
 fi
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
