@@ -22,10 +22,6 @@ spec:
         - containerPort: 80
           name: phpmyadmin
         env:
-        - name: MYSQL_USER
-          value: admin
-        - name: MYSQL_PASSWORD
-          value: admin
         - name: PMA_HOST
           value: mysql
         - name: PMA_PORT
@@ -33,7 +29,16 @@ spec:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-secret
+              name: mysql-root-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: blizzity
+        - name: MYSQL_USER
+          value: user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-user-pass
               key: password
 
 ---
