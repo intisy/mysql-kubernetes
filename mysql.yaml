@@ -48,7 +48,7 @@ spec:
           claimName: mysql-pv-claim
       containers:
       - name: mysql
-        image: mysql:latest
+        image: mysql:8.4.0
         env:
         - name: MYSQL_ROOT_PASSWORD
           valueFrom:
