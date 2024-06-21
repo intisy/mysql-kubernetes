@@ -23,5 +23,5 @@ Deinstall
 ---------
 
 ```
-curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/uninstall.sh | bash -s
+curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/deinstall.sh | bash -s
 ```
