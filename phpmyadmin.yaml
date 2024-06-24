@@ -54,5 +54,5 @@ spec:
     app: phpmyadmin
   ports:
   - protocol: TCP
-    port: 80
+    port: 720
     targetPort: 80
