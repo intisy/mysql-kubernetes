@@ -25,11 +25,11 @@ execute() {
   fi
 }
 
-execute "kubectl delete secret mysql-root-pass"
-execute "kubectl delete secret mysql-user-pass"
-execute "kubectl delete deployment mysql"
-execute "kubectl delete service mysql"
-execute "kubectl delete deployment phpmyadmin"
-execute "kubectl delete service phpmyadmin"
-execute "kubectl delete pv mysql-pv"
-execute "kubectl delete pvc mysql-pv-claim"
+execute "kubectl delete secret mysql-root-pass --grace-period=0 --force"
+execute "kubectl delete secret mysql-user-pass --grace-period=0 --force"
+execute "kubectl delete deployment mysql --grace-period=0 --force"
+execute "kubectl delete service mysql --grace-period=0 --force"
+execute "kubectl delete deployment phpmyadmin --grace-period=0 --force"
+execute "kubectl delete service phpmyadmin --grace-period=0 --force"
+execute "kubectl delete pv mysql-pv --grace-period=0 --force"
+execute "kubectl delete pvc mysql-pv-claim --grace-period=0 --force"
