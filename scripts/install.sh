@@ -71,11 +71,6 @@ spec:
           operator: In
           values:
           - blizzity2
-      # - matchExpressions: TODO fix this
-      #   - key: kubernetes.io/role
-      #     operator: In
-      #     values:
-      #     - control-plane
 OEF
 fi
 kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/mysql.yaml
