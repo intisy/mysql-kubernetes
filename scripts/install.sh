@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#test
 sha=$1
 root_password=$2
 user_password=$3
