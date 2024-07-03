@@ -1,7 +1,8 @@
 #!/bin/bash
 
-root_password=$1
-user_password=$2
+sha=$1
+root_password=$2
+user_password=$3
 using_nfs=false
 
 generate_secure_password() {
@@ -70,15 +71,15 @@ spec:
           operator: In
           values:
           - blizzity2
-      # - matchExpressions:
+      # - matchExpressions: TODO fix this
       #   - key: kubernetes.io/role
       #     operator: In
       #     values:
       #     - control-plane
 OEF
 fi
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/mysql.yaml
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/phpmyadmin.yaml
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/mysql.yaml
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/phpmyadmin.yaml
 echo "waiting for mysql to be ready..." >&2
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
     sleep 1
