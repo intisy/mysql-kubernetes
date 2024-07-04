@@ -42,13 +42,6 @@ spec:
       labels:
         app: mysql
     spec:
-      livenessProbe:
-        httpGet:
-          path: /healthz
-          port: 8080
-        initialDelaySeconds: 15
-        periodSeconds: 20
-        failureThreshold: 3
       restartPolicy: Always
       volumes:
       - name: mysql-pv
