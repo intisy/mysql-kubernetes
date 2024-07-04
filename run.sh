@@ -6,7 +6,7 @@ arg2=$2
 
 execute() {
   substring="The requested URL returned error"
-  sha=$(curl -sSL https://api.github.com/repos/WildePizza/mysql-kubernetesy/commits?per_page=2 | jq -r '.[1].sha')
+  sha=$(curl -sSL https://api.github.com/repos/WildePizza/mysql-kubernetes/commits?per_page=2 | jq -r '.[1].sha')
   url="https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/$action.sh"
   echo "Executing: $url"
   output=$(curl -fsSL $url 2>&1)
