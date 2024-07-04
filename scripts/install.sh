@@ -3,7 +3,7 @@
 sha=$1
 root_password=$2
 user_password=$3
-using_nfs=false
+using_nfs=false #...
 
 generate_secure_password() {
   if ! command -v openssl &> /dev/null; then
