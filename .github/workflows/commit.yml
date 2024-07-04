@@ -3,9 +3,6 @@ name: Copy commit files
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'scripts/**'
-      - 'yaml/**'
 
 jobs:
   copy-commit-files:
