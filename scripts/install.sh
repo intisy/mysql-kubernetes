@@ -23,7 +23,7 @@ if [ ! -n "$user_password" ]; then
   generate_secure_password
   user_password=$password
 fi
-curl -fsSL https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/deinstall.sh | bash -s false
+curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
 echo "Root password: $root_password"
 kubectl create secret generic mysql-root-pass --from-literal=password=$root_password
 echo "User password: $user_password"
