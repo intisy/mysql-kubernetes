@@ -73,8 +73,8 @@ spec:
           - blizzity2
 OEF
 fi
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/mysql.yaml
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/phpmyadmin.yaml
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/mysql.yaml
+kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/phpmyadmin.yaml
 echo "waiting for mysql to be ready..." >&2
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
     sleep 1
