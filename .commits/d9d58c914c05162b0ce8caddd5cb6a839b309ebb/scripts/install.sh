@@ -34,6 +34,7 @@ if [ ! -n "$user_password" ]; then
   generate_secure_password
   user_password=$password
 fi
+sudo mkdir /var/lib/mysql
 wait_until_ready https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh
 curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
 echo "Root password: $root_password"
