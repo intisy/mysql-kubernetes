@@ -1,14 +1,14 @@
 #!/bin/bash
 
-kubectl delete service phpmyadmin --grace-period=0 --force
-kubectl delete deployment phpmyadmin --grace-period=0 --force
-kubectl delete pods -l app=phpmyadmin --grace-period=0 --force
-kubectl delete replicaset.apps -l app=phpmyadmin --grace-period=0 --force
-kubectl delete deployment mysql --grace-period=0 --force
-kubectl delete pods -l app=mysql --grace-period=0 --force
-kubectl delete replicaset.apps -l app=mysql --grace-period=0 --force
-kubectl delete service mysql --grace-period=0 --force
-kubectl delete pvc mysql-pv-claim --grace-period=0 --force
-kubectl delete pv mysql-pv --grace-period=0 --force
-kubectl delete secret mysql-root-pass --grace-period=0 --force
-kubectl delete secret mysql-user-pass --grace-period=0 --force
+kubectl delete service phpmyadmin
+kubectl delete deployment phpmyadmin
+kubectl delete pods -l app=phpmyadmin
+kubectl delete replicaset.apps -l app=phpmyadmin
+kubectl delete deployment mysql
+kubectl delete pods -l app=mysql
+kubectl delete replicaset.apps -l app=mysql
+kubectl delete service mysql
+kubectl delete pvc mysql-pv-claim
+kubectl delete pv mysql-pv
+kubectl delete secret mysql-root-pass
+kubectl delete secret mysql-user-pass
