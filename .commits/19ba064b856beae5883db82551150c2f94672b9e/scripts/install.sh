@@ -83,7 +83,7 @@ spec:
         - key: node-role.kubernetes.io/control-plane
           operator: In
           values:
-          - true
+          - "true"
 OEF
 fi
 echo "Installing MySQL"
