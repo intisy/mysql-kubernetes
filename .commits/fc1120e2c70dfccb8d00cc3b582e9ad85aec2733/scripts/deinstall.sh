@@ -12,3 +12,5 @@ kubectl delete pvc mysql-pv-claim
 kubectl delete pv mysql-pv
 kubectl delete secret mysql-root-pass
 kubectl delete secret mysql-user-pass
+
+sudo rm -r /mnt/data/mysql
