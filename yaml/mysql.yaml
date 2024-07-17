@@ -58,13 +58,6 @@ spec:
               key: password
         - name: MYSQL_DATABASE
           value: blizzity
-        - name: MYSQL_USER
-          value: user
-        - name: MYSQL_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mysql-user-pass
-              key: password
         volumeMounts:
         - name: mysql-pv
           mountPath: /var/lib/mysql
