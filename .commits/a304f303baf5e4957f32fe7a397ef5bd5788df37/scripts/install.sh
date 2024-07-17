@@ -45,8 +45,8 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: $(hostname -I | awk {'print $1'})
-    path: /exports/documents
+    server: nfs-server
+    path: /data/mysql
   persistentVolumeReclaimPolicy: Recycle
 OEF
 else
