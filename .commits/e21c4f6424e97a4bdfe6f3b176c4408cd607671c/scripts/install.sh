@@ -1,9 +1,8 @@
 #!/bin/bash
 
 sha=$1
-root_password=$2
-user_password=$3
-using_nfs=false
+password=$2
+using_nfs=$3
 
 wait_until_ready() {
   url=$1
@@ -22,25 +21,18 @@ generate_secure_password() {
     return 1
   fi
   length=20
-  password=$(openssl rand -base64 $length | tr -dc 'A-Za-z0-9')
+  echo $(openssl rand -base64 $length | tr -dc 'A-Za-z0-9')
 }
 
-if [ ! -n "$root_password" ]; then
-  generate_secure_password
-  root_password=$password
+if [ ! -n "$password" ]; then
+  password=$(generate_secure_password)
+  echo "Generated root password: $password"
 fi
 
-if [ ! -n "$user_password" ]; then
-  generate_secure_password
-  user_password=$password
-fi
 sudo mkdir /var/lib/mysql
 wait_until_ready https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh
 curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
-echo "Root password: $root_password"
-kubectl create secret generic mysql-root-pass --from-literal=password=$root_password
-echo "User password: $user_password"
-kubectl create secret generic mysql-user-pass --from-literal=password=$user_password
+kubectl create secret generic mysql-root-pass --from-literal=password=$password
 if [ "$using_nfs" = true ]; then
   kubectl apply -f - <<OEF
 apiVersion: v1
