@@ -50,7 +50,7 @@ spec:
     - ReadWriteOnce
   nfs:
     server: nfs-server
-    path: /data/mysql
+    path: /mysql
   persistentVolumeReclaimPolicy: Recycle
 OEF
 else
