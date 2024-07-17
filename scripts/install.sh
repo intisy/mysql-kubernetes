@@ -33,9 +33,9 @@ if [ ! -n "$password" ]; then
   echo2 "Generated root password: $password"
 fi
 
-sudo mkdir /var/lib/mysql
 wait_until_ready https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh
 curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
+sudo mkdir /var/lib/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 if [ "$using_nfs" = true ]; then
   kubectl apply -f - <<OEF
