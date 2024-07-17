@@ -35,7 +35,7 @@ fi
 
 wait_until_ready https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh
 curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
-sudo mkdir /var/lib/mysql
+sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 if [ "$using_nfs" = true ]; then
   kubectl apply -f - <<OEF
