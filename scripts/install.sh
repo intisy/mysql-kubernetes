@@ -1,22 +1,13 @@
 #!/bin/bash
 
-sha=$1
-password=$2
-using_nfs=$3
+args=$@
+pat=$1
+sha=$2
+password=$3
+using_nfs=$4
 
 echo2() {
   echo -e "\033[0;33m$@\033[0m"
-}
-wait_until_ready() {
-  url=$1
-  substring1="The requested URL returned error"
-  substring2="Could not resolve host: raw.githubusercontent.com"
-  echo2 "Executing: $url"
-  output=$(curl -fsSL $url 2>&1)
-  if [[ $output =~ $substring1 || $output =~ $substring2 ]]; then
-    sleep 1
-    wait_until_ready
-  fi
 }
 generate_secure_password() {
   if ! command -v openssl &> /dev/null; then
@@ -33,8 +24,7 @@ if [ ! -n "$password" ]; then
   echo2 "Generated root password: $password"
 fi
 
-wait_until_ready https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh
-curl -fsSL https://raw.githubusercontent.com/WildePizza/mysql-kubernetes/HEAD/.commits/$sha/scripts/deinstall.sh | bash -s
+sudo bash kubernetes-center/run.sh repo=mysql-kubernetes raw_args="$args" action=deinstall pat=$pat sha=$sha
 sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 if [ "$using_nfs" = true ]; then
@@ -83,12 +73,10 @@ spec:
 OEF
 fi
 echo2 "Installing MySQL"
-wait_until_ready https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/mysql.yaml
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/mysql.yaml
+sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=mysql pat=$pat sha=$sha yaml=true
 echo2 "Waiting for MySQL to be ready..." >&2
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
     sleep 1
 done
 echo2 "Installing PhpMyAdmin"
-wait_until_ready https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/phpmyadmin.yaml
-kubectl apply -f https://raw.githubusercontent.com/WildePizza/kubernetes-apps/HEAD/.commits/$sha/yaml/phpmyadmin.yaml
+sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=phpmyadmin pat=$pat sha=$sha yaml=true
