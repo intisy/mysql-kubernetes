@@ -28,6 +28,7 @@ sudo bash kubernetes-center/run.sh repo=mysql-kubernetes raw_args="$args" action
 sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 if [ "$using_nfs" = true ]; then
+  echo2 "Installing MySQL with NFS support"
   kubectl apply -f - <<OEF
 apiVersion: v1
 kind: PersistentVolume
@@ -44,6 +45,7 @@ spec:
   persistentVolumeReclaimPolicy: Recycle
 OEF
 else
+  echo2 "Installing MySQL without NFS"
   kubectl apply -f - <<OEF
 apiVersion: v1
 kind: PersistentVolume
