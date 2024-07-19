@@ -33,16 +33,15 @@ if [ "$using_nfs" = true ]; then
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mysql-pv
+  name: nfs-pv
 spec:
   capacity:
-    storage: 20Gi
+    storage: 10Gi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   nfs:
     server: nfs-server.default.svc.cluster.local
     path: /mysql
-  persistentVolumeReclaimPolicy: Recycle
 OEF
 else
   echo2 "Installing MySQL without NFS"
