@@ -27,56 +27,6 @@ fi
 sudo bash kubernetes-center/run.sh repo=mysql-kubernetes raw_args="$args" action=deinstall pat=$pat sha=$sha
 sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
-if [ "$using_nfs" = true ]; then
-  echo2 "Installing MySQL with NFS support"
-  kubectl apply -f - <<OEF
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-  namespace: default
-spec:
-  capacity:
-    storage: 10Gi
-  accessModes:
-    - ReadWriteMany
-  claimRef:
-    namespace: default
-    name: mysql-pv-claim
-  nfs:
-    server: nfs-server.default.svc.cluster.local
-    path: /mysql
-OEF
-else
-  echo2 "Installing MySQL without NFS"
-  kubectl apply -f - <<OEF
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-spec:
-  capacity:
-    storage: 20Gi
-  volumeMode: Filesystem
-  accessModes:
-  - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Delete
-  claimRef:
-    namespace: default
-    name: mysql-pv-claim
-  storageClassName: local-storage
-  local:
-    path: "/mnt/data/mysql"
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: node-role.kubernetes.io/control-plane
-          operator: In
-          values:
-          - "true"
-OEF
-fi
 echo2 "Installing MySQL"
 sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=mysql pat=$pat sha=$sha yaml=true
 echo2 "Waiting for MySQL to be ready..." >&2
