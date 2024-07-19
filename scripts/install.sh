@@ -39,7 +39,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   nfs:
-    server: nfs-server
+    server: nfs-server.default.svc.cluster.local
     path: /mysql
   persistentVolumeReclaimPolicy: Recycle
 OEF
