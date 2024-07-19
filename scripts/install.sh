@@ -39,6 +39,9 @@ spec:
     storage: 10Gi
   accessModes:
     - ReadWriteMany
+  claimRef:
+    namespace: default
+    name: mysql-pv-claim
   nfs:
     server: nfs-server.default.svc.cluster.local
     path: /mysql
