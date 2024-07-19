@@ -33,7 +33,7 @@ if [ "$using_nfs" = true ]; then
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-pv
+  name: mysql-pv
 spec:
   capacity:
     storage: 10Gi
