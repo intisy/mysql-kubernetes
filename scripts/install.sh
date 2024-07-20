@@ -5,6 +5,7 @@ pat=$1
 sha=$2
 password=$3
 using_nfs=$4
+local_ip=$(ip addr show | grep 'inet ' | grep -v '127.0.0.1' | awk '{print $2}' | cut -d'/' -f1 | head -n 1)
 
 echo2() {
   echo -e "\033[0;33m$@\033[0m"
@@ -64,7 +65,7 @@ spec:
       volumes:
       - name: mysql-pv
         nfs: 
-          server: nfs-server.default.svc.cluster.local
+          server: $local_ip
           path: /mysql
       containers:
       - name: mysql
