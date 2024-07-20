@@ -29,7 +29,6 @@ sudo bash kubernetes-center/run.sh repo=mysql-kubernetes raw_args="$args" action
 sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 echo2 "Installing MySQL"
-sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=mysql pat=$pat sha=$sha yaml=true
 kubectl apply -f - <<OEF
 apiVersion: v1
 kind: Service
