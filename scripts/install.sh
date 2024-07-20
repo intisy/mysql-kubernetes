@@ -29,6 +29,69 @@ sudo bash kubernetes-center/run.sh repo=mysql-kubernetes raw_args="$args" action
 sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 echo2 "Installing MySQL"
+if [ "$using_nfs" = true ]; then
+  echo2 "Installing MySQL with NFS support"
+  kubectl apply -f - <<OEF
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  namespace: default
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  claimRef:
+    namespace: default
+    name: mysql-pv-claim
+    nfs: 
+      server: $local_ip
+      path: /mysql
+OEF
+else
+  echo2 "Installing MySQL without NFS"
+  kubectl apply -f - <<OEF
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+spec:
+  capacity:
+    storage: 20Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  claimRef:
+    namespace: default
+    name: mysql-pv-claim
+  storageClassName: local-storage
+  local:
+    path: "/mnt/data/mysql"
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: node-role.kubernetes.io/control-plane
+          operator: In
+          values:
+          - "true"
+OEF
+fi
+kubectl apply -f - <<OEF
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pv-claim
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+OEF
 kubectl apply -f - <<OEF
 apiVersion: v1
 kind: Service
@@ -63,9 +126,8 @@ spec:
       restartPolicy: Always
       volumes:
       - name: mysql-pv
-        nfs: 
-          server: $local_ip
-          path: /mysql
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
       containers:
       - name: mysql
         image: mysql:9.0.0
