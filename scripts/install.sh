@@ -29,9 +29,116 @@ sudo mkdir /mnt/data/mysql
 kubectl create secret generic mysql-root-pass --from-literal=password=$password
 echo2 "Installing MySQL"
 sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=mysql pat=$pat sha=$sha yaml=true
+kubectl apply -f - <<OEF
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: NodePort
+  selector:
+    app: mysql
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 30007
+OEF
+kubectl apply -f - <<OEF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      restartPolicy: Always
+      volumes:
+      - name: mysql-pv
+        nfs: 
+          server: nfs-server.default.svc.cluster.local
+          path: /mysql
+      containers:
+      - name: mysql
+        image: mysql:9.0.0
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: blizzity
+        volumeMounts:
+        - name: mysql-pv
+          mountPath: /var/lib/mysql
+        ports:
+        - containerPort: 3306
+          name: mysql
+OEF
 echo2 "Waiting for MySQL to be ready..." >&2
 while [ $(kubectl get deployment mysql | grep -c "1/1") != "1" ]; do
     sleep 1
 done
 echo2 "Installing PhpMyAdmin"
-sudo bash kubernetes-center/run.sh repo=mysql-kubernetes action=phpmyadmin pat=$pat sha=$sha yaml=true
+kubectl apply -f - <<OEF
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpmyadmin
+  labels:
+    app: phpmyadmin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpmyadmin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: phpmyadmin
+    spec:
+      restartPolicy: Always
+      containers:
+      - name: phpmyadmin
+        image: phpmyadmin:5.2.1
+        ports:
+        - containerPort: 80
+          name: phpmyadmin
+        env:
+        - name: PMA_HOST
+          value: mysql
+        - name: PMA_PORT
+          value: "3306"
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-pass
+              key: password
+        - name: MYSQL_DATABASE
+          value: blizzity
+OEF
+kubectl apply -f - <<OEF
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpmyadmin
+spec:
+  type: LoadBalancer
+  selector:
+    app: phpmyadmin
+  ports:
+  - protocol: TCP
+    port: 720
+    targetPort: 80
+OEF
