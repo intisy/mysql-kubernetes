@@ -45,9 +45,9 @@ spec:
   claimRef:
     namespace: default
     name: mysql-pv-claim
-    nfs: 
-      server: $local_ip
-      path: /mysql
+  nfs: 
+    server: $local_ip
+    path: /mysql
 OEF
 else
   echo2 "Installing MySQL without NFS"
